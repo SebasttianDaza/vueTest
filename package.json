@@ -8,10 +8,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.2.25"
+    "vue": "^3.2.25",
+    "vue-remix-icons": "^1.1.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.2.0",
     "vite": "^2.8.0"
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "compilerOptions": {
+    "module": "es2015",
+    "moduleResolution": "node",
+    "target": "es5",
+    "sourceMap": true,
+    "allowJs": true
   }
 }
