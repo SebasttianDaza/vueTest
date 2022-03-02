@@ -1,15 +1,27 @@
-<script setup>
+<script>
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 import  Nav from './components/nav.vue';
 import Info from './components/info.vue';
 
+export default {
+  components: {
+    Nav,
+    Info
+  },
+  data () {
+    return {
+      statePage: 0,
+    }
+  } 
+}
+
 </script>
 
 <template>
   <div>
-    <Nav/>
-    <Info/>
+    <Nav :page="statePage"/>
+    <Info @savePage="statePage = $event"/>
   </div>
 </template>
 

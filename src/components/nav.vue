@@ -1,5 +1,10 @@
-<script setup>
-  
+<script>
+
+export default {
+  props: {
+    page:"",
+  }
+}
 
 </script>
 
@@ -21,11 +26,11 @@
       </section>
       <section class="pagination">
         <button class="button" disabled>
-          <i class="ri-arrow-left-line"></i>
+          <a href="" class="paginationPrev"></a>
         </button>
-        <p>Numero de Page</p>
+        <p>{{ page }}</p>
         <button class="button" disabled>
-          <i class="ri-arrow-right-line"></i>
+          <a href="" class="paginationNext"></a>
         </button>
       </section>
   </nav>
