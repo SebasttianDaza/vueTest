@@ -1,13 +1,15 @@
 <script setup>
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import  Nav from './components/nav.vue'
-import table from './components/table.vue'
+import  Nav from './components/nav.vue';
+import Info from './components/info.vue';
+
 </script>
 
 <template>
   <div>
     <Nav/>
+    <Info/>
   </div>
 </template>
 
@@ -15,6 +17,9 @@ import table from './components/table.vue'
 :root {
   --color-background: rgba(244, 247, 252, 0.75);
   --color-nature: #fff;
+  --font-family: 'Inter', sans-serif;
+  --font-family-head: normal 600 11px/16px var(--font-family);
+  --color-text: #464F60;
   
 }
 
@@ -34,4 +39,13 @@ html, body {
   margin: 0 auto;
   width: 80vw;
 }
+
+@media screen and (max-width: 900px) {
+  #app {
+    width: 90vw;
+  }
+}
+  
+
+
 </style>

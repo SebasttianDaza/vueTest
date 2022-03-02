@@ -64,6 +64,17 @@
 }
 
 
+@media screen and (max-width: 900px) {
+  .nav {
+    grid-template-columns: .7fr 3fr;
+    
+  }
+
+  .input form {
+    width: 90%;
+  }
+} 
+
 
 </style>
 
