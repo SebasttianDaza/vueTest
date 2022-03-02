@@ -1,20 +1,16 @@
 <script >
     export default {
-        props : {
-            data : {
-                type : Array,
-                required : true
-            }
-        },
+        props : ['date'],
+        
     }
 
-    console.log(this.data);
+    
 
 </script>
 
 <template>
       <tr>
-          <td>742</td>
+          <td></td>
           <td>Abu Dhabi, AEAUH</td>
           <td>United Arab Emirates</td>
           <td>AS</td>

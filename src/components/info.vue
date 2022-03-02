@@ -1,16 +1,6 @@
 <script >
 import Row from './row.vue';
 
-async function methods () {
-   
-      fetch('https://api.covid19api.com/summary')
-        .then(response => response.json())
-        .then(data => {
-          console.log(data);
-        });
-}
-
-methods();
 
 
 export default {
@@ -28,9 +18,10 @@ export default {
       fetch('https://api.covid19api.com/summary')
         .then(response => response.json())
         .then(data => {
+          console.log(data);
           this.data = data.Countries;
         });
-    },
+    }
   },
   created() {
     this.fetchData();
@@ -49,7 +40,7 @@ export default {
           <th>Continent</th>
           <th>Cordinates</th>
       </tr>
-      <Row :data="data"/>    
+      <Row date="data"/>    
   </table>
 </template>
 
