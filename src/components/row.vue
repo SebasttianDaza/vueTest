@@ -1,20 +1,36 @@
 <script >
-    export default {
-        props : ['date'],
-        
-    }
+   
+   export default {
+       props: {
+            key: "",
+            nameIdentify: "",
+            nameContent: "",
+            country: "",
+            continent: "",
+            cordinates: ""
+       },
+   }
 
     
 
 </script>
 
 <template>
-      <tr>
-          <td></td>
-          <td>Abu Dhabi, AEAUH</td>
-          <td>United Arab Emirates</td>
-          <td>AS</td>
-          <td>24°30'N 55°45'E</td>
+      <tr class="tableRow" >
+          <td> {{ nameIdentify }}</td>
+          <td>{{ nameContent }}</td>
+          <td>{{ country }}</td>
+          <td>{{ continent }}</td>
+          <td>{{ cordinates }}</td>
       </tr>     
 </template>
+
+<style>
+.tableRow {
+  width: 100%;
+  text-align: center;
+  height: 40px;
+}
+
+</style>
 

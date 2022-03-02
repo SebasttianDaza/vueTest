@@ -19,6 +19,15 @@
           <input type="text" placeholder="Search" />
         </form>
       </section>
+      <section class="pagination">
+        <button class="button" disabled>
+          <i class="ri-arrow-left-line"></i>
+        </button>
+        <p>Numero de Page</p>
+        <button class="button" disabled>
+          <i class="ri-arrow-right-line"></i>
+        </button>
+      </section>
   </nav>
 </template>
 
@@ -33,7 +42,7 @@
   border-top-left-radius: .5rem;
   border-top-right-radius: .5rem;
   display: grid;
-  grid-template-columns: .7fr 4fr;
+  grid-template-columns: .7fr 3fr 1fr;
   align-items: center;
 }
 
@@ -64,14 +73,36 @@
 }
 
 
+.pagination {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: .5rem;
+  align-items: center;
+  justify-items: center;
+}
+
+.pagination button {
+  width: 32px;
+  height: 32px;
+  background: #FFFFFF;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.06), 0px 0px 0px 1px rgba(104, 113, 130, 0.16);
+  border-radius: 6px;
+  border: none;
+  outline: none;
+}
+
 @media screen and (max-width: 900px) {
   .nav {
-    grid-template-columns: .7fr 3fr;
+    grid-template-columns: .3fr 1fr .3fr;
     
   }
 
   .input form {
     width: 90%;
+  }
+
+  .pagination {
+    grid-template-columns: 1fr 1fr;
   }
 } 
 

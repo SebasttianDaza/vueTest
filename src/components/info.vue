@@ -1,32 +1,51 @@
 <script >
+import axios from 'axios';
 import Row from './row.vue';
+/*
 
-
-
+function 
+}*/
 export default {
   components: {
     Row
   },
-  props: {
-    data: {
-      type: Array,
-      required: true
+
+  data () {
+    return {
+      infomation: [],
+      informationGeneral: [],
+      page: 1,
+
     }
   },
+
   methods: {
-    async fetchData() {
-      fetch('https://api.covid19api.com/summary')
-        .then(response => response.json())
-        .then(data => {
-          console.log(data);
-          this.data = data.Countries;
-        });
+    async getData () {
+
+      let AXIOS = axios;
+      
+      AXIOS.get("http://apitest.cargofive.com/api/ports")
+      .then(response => {
+        
+        this.page = response.data.meta.last_page;
+        this.infomation = response.data.data;
+        this.informationGeneral = response.data.data;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+      
     }
   },
-  created() {
-    this.fetchData();
+
+  mounted () {
+    this.getData();
   }
-};
+
+
+}
+
 
 
 </script>
@@ -39,8 +58,9 @@ export default {
           <th>Country</th>
           <th>Continent</th>
           <th>Cordinates</th>
-      </tr>
-      <Row date="data"/>    
+      </tr> 
+
+      <Row v-for="(item, index) in infomation" :key="index" :nameIdentify="item.id" :nameContent="item.name" :country="item.country" :continent="item.continent" :cordinates="item.coordinates"></Row>     
   </table>
 </template>
 
@@ -51,6 +71,7 @@ export default {
   0px 1px 4px rgba(69, 75, 87, 0.12)
   , 0px 0px 2px rgba(0, 0, 0, 0.08);
   overflow:hidden;
+  height: 100%;
 }
 
 .TableHead {
@@ -62,4 +83,6 @@ export default {
   background-color: var(--color-background);
   backdrop-filter: blur(8px);
 }
+
+
 </style>
