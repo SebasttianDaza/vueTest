@@ -29,8 +29,19 @@
 .tableRow {
   width: 100%;
   text-align: center;
-  height: 40px;
+  height: 64px;
+  font: var(--font-family-body);
+  color: var(--color-text-second);
 }
+
+@media screen and (max-width: 900px) {
+  .tableRow td {
+    min-width: 110px ;
+  }
+}
+  
+
+
 
 </style>
 
