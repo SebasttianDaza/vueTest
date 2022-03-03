@@ -9,12 +9,13 @@ export default {
   components: {
     Row
   },
+
   data () {
     return {
       infomation: [],
       informationGeneral: [],
       page: 1,
-      pageSize: 10,
+      pageSize: 1,
 
     }
   },
@@ -23,31 +24,35 @@ export default {
     async getData () {
 
       let AXIOS = axios;
+      const params = {
+        page: this.page
+      }
 
-      AXIOS.get("http://apitest.cargofive.com/api/ports")
+      AXIOS.get("http://apitest.cargofive.com/api/ports", { params })
       .then(response => {
         
         this.pageSize = response.data.meta.last_page;
         this.page = response.data.meta.current_page;
         this.infomation = response.data.data;
         this.informationGeneral = response.data.data;
+        this.$emit('savePage', this.page);
       })
       .catch(error => {
         console.log(error);
       });
 
       
+    },
+
+    changePage(page){
+      this.page = (page <= 0 && page > this.pageSize) ? this.page : page;
+      this.getData();
     }
   },
 
   mounted () {
     this.getData();
-  },
-
-  computed: {
-    countPage () {
-      this.$emit('savePage', this.page);
-    }
+    this.$emit('changePage', this.changePage);
   }
 
 }

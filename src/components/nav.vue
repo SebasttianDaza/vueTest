@@ -3,7 +3,8 @@
 export default {
   props: {
     page:"",
-  }
+    changePageFetch: Function
+  },
 }
 
 </script>
@@ -25,12 +26,12 @@ export default {
         </form>
       </section>
       <section class="pagination">
-        <button class="button" disabled>
-          <a href="" class="paginationPrev"></a>
+        <button class="button" v-on:click="changePageFetch( page - 1)">
+          Next
         </button>
         <p>{{ page }}</p>
-        <button class="button" disabled>
-          <a href="" class="paginationNext"></a>
+        <button class="button"  v-on:click="changePageFetch( page + 1)">
+          Prev
         </button>
       </section>
   </nav>

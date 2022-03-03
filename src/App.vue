@@ -11,7 +11,8 @@ export default {
   },
   data () {
     return {
-      statePage: 0,
+      statePage: 1,
+      changePageComplete: Function,
     }
   } 
 }
@@ -20,8 +21,8 @@ export default {
 
 <template>
   <div>
-    <Nav :page="statePage"/>
-    <Info @savePage="statePage = $event"/>
+    <Nav :page="statePage" :changePageFetch="changePageComplete"/>
+    <Info @savePage="statePage = $event" @changePage="changePageComplete = $event"/>
   </div>
 </template>
 
