@@ -7,14 +7,16 @@ export default {
     Row
   },
 
+  props: {
+    dataSearch: "",
+  },
+
   data () {
     return {
       infomation: [],
       informationGeneral: [],
       page: 1,
-      pageSize: 1,
-      search: '',
-
+      pageSize: 1
     }
   },
 
@@ -23,25 +25,27 @@ export default {
   
 
       let AXIOS = axios;
+
       const params = {
-        page: this.page,
-        name: this.search
+        page: this.page
       }
 
       AXIOS.get("http://apitest.cargofive.com/api/ports", { params })
       .then(response => {
-        
         this.pageSize = response.data.meta.last_page;
         this.page = response.data.meta.current_page;
         this.infomation = response.data.data;
         this.informationGeneral = response.data.data;
         this.$emit('savePage', this.page);
         this.$emit('savePageSize', this.pageSize);
+        
       })
       .catch(error => {
         console.log(error);
       });
 
+      
+      
       
     },
 
@@ -50,10 +54,13 @@ export default {
       this.getData();
     },
 
-    searchData (data) {
-      this.search = data;
+    searchData () {
       this.page = 1;
-      this.getData();
+      this.infomation = this.informationGeneral.filter(item => {
+       if(item.name.toLowerCase().includes(this.dataSearch.toLowerCase())){
+         return item;
+       }
+      });
     }
   },
 
@@ -77,8 +84,10 @@ export default {
           <th>Name</th>
           <th>Country</th>
           <th>Continent</th>
-          <th>Cordinates</th>
+          <th>Coordinates</th>
       </tr> 
+      
+
       <Row v-for="(item, index) in infomation" :key="index" :nameIdentify="item.id" :nameContent="item.name" :country="item.country" :continent="item.continent" :cordinates="item.coordinates"></Row>     
   </table>
   </div>
