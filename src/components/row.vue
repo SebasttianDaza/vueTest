@@ -1,15 +1,16 @@
 <script >
    
-   export default {
-       props: {
-            key: "",
-            nameIdentify: "",
-            nameContent: "",
-            country: "",
-            continent: "",
-            cordinates: ""
-       },
-   }
+export default {
+  props: {
+    key: "",
+    nameIdentify: "",
+    nameContent: "",
+    country: "",
+    continent: "",
+    cordinates: "",
+    
+  },
+}
 
     
 
@@ -17,11 +18,11 @@
 
 <template>
       <tr class="tableRow" >
-          <td> {{ nameIdentify }}</td>
-          <td>{{ nameContent }}</td>
-          <td>{{ country }}</td>
-          <td>{{ continent }}</td>
-          <td>{{ cordinates }}</td>
+          <td > {{ nameIdentify }}</td>
+          <td >{{ nameContent }}</td>
+          <td >{{ country }}</td>
+          <td >{{ continent }}</td>
+          <td >{{ cordinates }}</td>
       </tr>     
 </template>
 
@@ -40,8 +41,5 @@
   }
 }
   
-
-
-
 </style>
 

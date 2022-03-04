@@ -14,7 +14,7 @@ export default {
       prevPages: Function,
       search: '',
       searchDate: Function,
-      typeSearch: '',
+      typeSearch: 'name',
     }
   } 
 }
@@ -35,7 +35,11 @@ export default {
       <section class="input">
         <div>
           <i class="ri-search-line"></i>
-          <input v-model="search" placeholder="Search" v-on:keyup="searchDate" />
+          <input 
+          v-model="search" 
+          placeholder="Search" 
+          v-on:keyup="searchDate(typeSearch)" 
+          />
           
         </div>
       </section>

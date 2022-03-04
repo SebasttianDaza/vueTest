@@ -55,13 +55,30 @@ export default {
       }
     },
       
-    searchData () {
+    searchData (type) {
       this.page = 1;
-      this.infomation = this.informationGeneral.filter(item => {
-       if(item.name.toLowerCase().includes(this.dataSearch.toLowerCase())){
-         return item;
-       }
-      });
+      if(type === "name"){
+        this.infomation = this.informationGeneral.filter(item => {
+          if(item.name.toLowerCase().includes(this.dataSearch.toLowerCase())){
+            return item;
+          }
+        });
+      }
+      if(type === "country"){
+        this.infomation = this.informationGeneral.filter(item => {
+          if(item.country.toLowerCase().includes(this.dataSearch.toLowerCase())){
+            return item;
+          }
+        });
+      }
+      if(type === "continet"){
+        this.infomation = this.informationGeneral.filter(item => {
+          if(item.continent.toUpperCase().includes(this.dataSearch.toUpperCase())){
+            return item;
+          }
+        });
+      }
+      
     }
   },
 
@@ -81,15 +98,26 @@ export default {
   <div class="contentTable">
     <table class="Table">
       <tr class="TableHead">
-          <th>ID</th>
-          <th>Name</th>
-          <th>Country</th>
-          <th>Continent</th>
-          <th>Coordinates</th>
+          <th class="thId">ID</th>
+          <th class="thName">Name</th>
+          <th class="thCountry">Country</th>
+          <th class="thContinent">Continent</th>
+          <th class="thCoordinates">Coordinates</th>
       </tr> 
       
 
-      <Row v-for="(item, index) in infomation.slice(page, page + 10)" :key="index" :nameIdentify="item.id" :nameContent="item.name" :country="item.country" :continent="item.continent" :cordinates="item.coordinates" ></Row>     
+      <Row 
+      v-for="(item, index) in infomation.slice(page, page + 10)" 
+      :key="index" 
+      :nameIdentify="item.id" 
+      :nameContent="item.name" 
+      :country="item.country" 
+      :continent="item.continent" 
+      :cordinates="item.coordinates"
+      
+       >
+      </Row>     
+
   </table>
   </div>
 </template>
@@ -118,6 +146,27 @@ export default {
   height: 40px;
   background-color: var(--color-background);
   backdrop-filter: blur(8px);
+  width: 100%;
+}
+
+.thId {
+  width: 10%;
+}
+
+.thName {
+  width: 30%;
+}
+
+.thCountry {
+  width: 20%;
+}
+
+.thCoordinates {
+  width: 30%;
+}
+
+.thContinent {
+  width: 10%;
 }
 
 </style>
