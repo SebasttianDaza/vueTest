@@ -15,45 +15,46 @@ export default {
     return {
       infomation: [],
       informationGeneral: [],
-      page: 1,
-      pageSize: 1
+      page: 0,
+      pageSize: 0,
+      filterInfo: [],
     }
   },
 
   methods: {
     async getData () {
   
-
       let AXIOS = axios;
+      const URL = "http://apitest.cargofive.com/api/ports?page=" ;
+      const page = [];
 
-      const params = {
-        page: this.page
+      for (let i = 1; i < 25; i++) {
+        page.push(URL + i);
       }
 
-      AXIOS.get("http://apitest.cargofive.com/api/ports", { params })
-      .then(response => {
-        this.pageSize = response.data.meta.last_page;
-        this.page = response.data.meta.current_page;
-        this.infomation = response.data.data;
-        this.informationGeneral = response.data.data;
-        this.$emit('savePage', this.page);
-        this.$emit('savePageSize', this.pageSize);
+
+      await AXIOS.all( page.map(url => AXIOS.get(url)) )
+        .then(AXIOS.spread((...responses) => {
+          responses.forEach(response => {
+            this.infomation = this.infomation.concat(response.data.data);
+            this.informationGeneral = this.informationGeneral.concat(response.data.data);
+          });
+        }))
+
+      
         
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
-      
-      
-      
     },
-
-    changePage(page){
-      this.page = (page <= 0 && page > this.pageSize) ? this.page : page;
-      this.getData();
+      
+    nextPage(){
+      console.log("nextPage");
+      this.page = this.page + 10;
     },
-
+    prevPage(){
+      if (this.page > 0) {
+        this.page = this.page - 10;
+      }
+    },
+      
     searchData () {
       this.page = 1;
       this.infomation = this.informationGeneral.filter(item => {
@@ -66,12 +67,12 @@ export default {
 
   mounted () {
     this.getData();
-    this.$emit('changePage', this.changePage);
+    this.$emit('nextPage', this.nextPage);
+    this.$emit('prevPage', this.prevPage);
     this.$emit('searchData', this.searchData);
   }
 
 }
-
 
 
 </script>
@@ -88,7 +89,7 @@ export default {
       </tr> 
       
 
-      <Row v-for="(item, index) in infomation" :key="index" :nameIdentify="item.id" :nameContent="item.name" :country="item.country" :continent="item.continent" :cordinates="item.coordinates"></Row>     
+      <Row v-for="(item, index) in infomation.slice(page, page + 10)" :key="index" :nameIdentify="item.id" :nameContent="item.name" :country="item.country" :continent="item.continent" :cordinates="item.coordinates" ></Row>     
   </table>
   </div>
 </template>

@@ -10,9 +10,8 @@ export default {
   },
   data () {
     return {
-      statePage: 1,
-      changePageComplete: Function,
-      savePageTotal: 25,
+      nextPages: Function,
+      prevPages: Function,
       search: '',
       searchDate: Function,
       typeSearch: '',
@@ -36,28 +35,28 @@ export default {
       <section class="input">
         <div>
           <i class="ri-search-line"></i>
-          <input v-model="search" placeholder="Search" v-on:keyup.enter="searchDate" />
+          <input v-model="search" placeholder="Search" v-on:keyup="searchDate" />
           
         </div>
       </section>
       <section class="pagination">
-        <button class="button prev" v-on:click="changePageComplete( statePage - 1)">
+        <button class="button prev" v-on:click="prevPages()">
           <img src="https://firebasestorage.googleapis.com/v0/b/emprendeyourlifestyle.appspot.com/o/icon.svg?alt=media&token=89c21e5e-9395-43ff-8833-59b4d350ff5e" alt="">
         </button>
-        <p class="pages">{{ statePage }} / {{ savePageTotal }}</p>
-        <button class="button next"  v-on:click="changePageComplete( statePage + 1)">
+        <p class="pages">1 / 1</p>
+        <button class="button next"  v-on:click="nextPages()">
           <img src="https://firebasestorage.googleapis.com/v0/b/emprendeyourlifestyle.appspot.com/o/icon%20(1).svg?alt=media&token=c76c9e87-5ba1-41f8-ac3c-8870ea5fcb7f" alt="">
         </button>
       </section>
     </nav>
 
-    <Info @savePage="statePage = $event" @changePage="changePageComplete = $event" @savePageSize="savePageTotal = $event" @searchData="searchDate = $event" :dataSearch="search"/>
+    <Info  @nextPage="nextPages = $event" @prevPage="prevPages = $event" @searchData="searchDate = $event" :dataSearch="search"/>
 
     <section class="footer">
-      <p>{{ statePage }}</p>
-      <p>{{ statePage }}</p>
-      <p>{{ statePage }}</p>
-      <p>{{ statePage }}</p>
+      <p>1</p>
+      <p>1</p>
+      <p>2</p>
+      <p>3</p>
     </section>
   </div>
 </template>
