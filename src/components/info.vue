@@ -21,6 +21,7 @@ export default {
   },
 
   methods: {
+    //Get data of the API
     async getData () {
   
       let AXIOS = axios;
@@ -38,24 +39,33 @@ export default {
             this.infomation = this.infomation.concat(response.data.data);
             this.informationGeneral = this.informationGeneral.concat(response.data.data);
             this.countELement = response.data.meta.total;
+            this.$emit('countELement', this.countELement);
           });
         }))
+        .catch(error => {
+          this.handleError(error);
+        });
 
       
         
     },
-      
+    
+    //Get next page
     nextPage(){
-      console.log("nextPage");
-      this.page = this.page + 10;
+      if (this.informationGeneral.filter(item => item.name.toLowerCase().includes(this.dataSearch.toLowerCase())).length > this.page + 10) {
+        this.page = this.page + 10;
+      } 
       
     },
+
+    //Get prev page
     prevPage(){
       if (this.page > 1) {
         this.page = this.page - 10;
       }
     },
       
+    //Get the data to search  
     searchData (type) {
       this.page = 1;
       if(type === "name"){
@@ -80,6 +90,10 @@ export default {
         });
       }
       
+    },
+
+    handleError (error) {
+      console.log(error);
     }
   },
 
@@ -88,6 +102,7 @@ export default {
     this.$emit('nextPage', this.nextPage);
     this.$emit('prevPage', this.prevPage);
     this.$emit('searchData', this.searchData);
+    
   }
 
 }
@@ -103,7 +118,7 @@ export default {
           <th class="thName">Name</th>
           <th class="thCountry">Country</th>
           <th class="thContinent">Continent</th>
-          <th class="thCoordinates">Coordinates</th>
+          <th class="thCoordinates">Coordinates {{ countELement }}</th>
       </tr> 
       
 

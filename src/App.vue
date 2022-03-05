@@ -4,6 +4,7 @@
 
 import Info from './components/info.vue';
 
+
 export default {
   components: {
     Info
@@ -14,29 +15,20 @@ export default {
       prevPages: Function,
       search: '',
       searchDate: Function,
-      typeSearch: 'name',
-      pageTotal: 1,
-      count: 1,
-      placeholder: 'Search for name',
+      typeSearch: '',
+      resultsTotal: Number,
+      page: Number,
     }
   },
+
   methods: {
-    dinamicPlaceholder () {
-      if (this.typeSearch === 'name') {
-        this.placeholder = 'Search for name'
+    calculatePagesAboutResults () {
+      for(let i = 10; i <= this.resultsTotal; i += 10) {
+        return this.page = this.page + 1;
       }
-      if (this.typeSearch === 'country') {
-        this.placeholder = 'Search for country'
-      }
-      if (this.typeSearch === 'continents') {
-        this.placeholder = 'Search for continents'
-      }
-      
     },
-  },
-  mounted () {
-    this.dinamicPlaceholder();
   }
+
 }
 
 </script>
@@ -57,30 +49,29 @@ export default {
           <img src="https://firebasestorage.googleapis.com/v0/b/emprendeyourlifestyle.appspot.com/o/3844432_magnifier_search_zoom_icon.svg?alt=media&token=383ec967-4e06-44b3-a1fb-528c7dac3912" alt="">
           <input 
           v-model="search" 
-          :placeholder="placeholder"
+          :placeholder="( typeSearch === 'name' ) ? 'Search by name' : ( typeSearch === 'country' ) ? 'Search by country' : 'Search by continent' "
           v-on:keyup="searchDate(typeSearch)" 
           />
-          
         </div>
       </section>
       <section class="pagination">
         <button class="button prev" v-on:click="prevPages()">
           <img src="https://firebasestorage.googleapis.com/v0/b/emprendeyourlifestyle.appspot.com/o/icon.svg?alt=media&token=89c21e5e-9395-43ff-8833-59b4d350ff5e" alt="">
         </button>
-        <p class="pages"> {{ count }} / {{ pageTotal }}</p>
+        <p class="pages"> 1 / 1</p>
         <button class="button next"  v-on:click="nextPages()">
           <img src="https://firebasestorage.googleapis.com/v0/b/emprendeyourlifestyle.appspot.com/o/icon%20(1).svg?alt=media&token=c76c9e87-5ba1-41f8-ac3c-8870ea5fcb7f" alt="">
         </button>
       </section>
     </nav>
 
-    <Info @nextPage="nextPages = $event" @prevPage="prevPages = $event" @searchData="searchDate = $event" :dataSearch="search"/>
+    <Info @nextPage="nextPages = $event" @prevPage="prevPages = $event" @searchData="searchDate = $event" :dataSearch="search"  @countELement="resultsTotal = $event"/>
 
     <section class="footer">
-      <p>1</p>
+      <p>Results: {{ resultsTotal }}</p>
       <p>1</p>
       <p>2</p>
-      <p>3</p>
+      <p>Carbon Five</p>
     </section>
   </div>
 </template>
@@ -93,6 +84,7 @@ export default {
   --font-family: 'Inter', sans-serif;
   --font-family-head: normal 600 11px/16px var(--font-family);
   --font-family-body: normal 500 14px/20px var(--font-family);
+  --font-family-footer: normal 500 12px/18px var(--font-family);
   --color-text: #464F60;
   --color-text-second: #171C26;
   
@@ -132,6 +124,8 @@ html, body {
   align-items: center;
   justify-content: center;
   text-align: center;
+  font: var(--font-family-footer);
+  color: var(--color-text-second);
 }
 
 .nav {
