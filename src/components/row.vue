@@ -7,8 +7,7 @@ export default {
     nameContent: "",
     country: "",
     continent: "",
-    cordinates: "",
-    
+    cordinates: ""
   },
 }
 
@@ -19,10 +18,10 @@ export default {
 <template>
       <tr class="tableRow" >
           <td > {{ nameIdentify }}</td>
-          <td >{{ nameContent }}</td>
-          <td >{{ country }}</td>
-          <td >{{ continent }}</td>
-          <td >{{ cordinates }}</td>
+          <td >{{ nameContent  }}</td>
+          <td >{{ country  }}</td>
+          <td >{{ continent  }}</td>
+          <td>{{ cordinates === null ? "Not data " : cordinates }}</td>
       </tr>     
 </template>
 

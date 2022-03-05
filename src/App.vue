@@ -15,8 +15,28 @@ export default {
       search: '',
       searchDate: Function,
       typeSearch: 'name',
+      pageTotal: 1,
+      count: 1,
+      placeholder: 'Search for name',
     }
-  } 
+  },
+  methods: {
+    dinamicPlaceholder () {
+      if (this.typeSearch === 'name') {
+        this.placeholder = 'Search for name'
+      }
+      if (this.typeSearch === 'country') {
+        this.placeholder = 'Search for country'
+      }
+      if (this.typeSearch === 'continents') {
+        this.placeholder = 'Search for continents'
+      }
+      
+    },
+  },
+  mounted () {
+    this.dinamicPlaceholder();
+  }
 }
 
 </script>
@@ -26,7 +46,7 @@ export default {
     <nav class="nav"> 
       <section class="Options">
         <select v-model="typeSearch">
-          <option  class="default" value="" disabled>Please</option>
+          <option  class="default" value="name">Filter</option>
           <option value="name">Name</option>
           <option value="country">Country</option>
           <option value="continet">Continet</option>
@@ -34,10 +54,10 @@ export default {
       </section>
       <section class="input">
         <div>
-          <i class="ri-search-line"></i>
+          <img src="https://firebasestorage.googleapis.com/v0/b/emprendeyourlifestyle.appspot.com/o/3844432_magnifier_search_zoom_icon.svg?alt=media&token=383ec967-4e06-44b3-a1fb-528c7dac3912" alt="">
           <input 
           v-model="search" 
-          placeholder="Search" 
+          :placeholder="placeholder"
           v-on:keyup="searchDate(typeSearch)" 
           />
           
@@ -47,14 +67,14 @@ export default {
         <button class="button prev" v-on:click="prevPages()">
           <img src="https://firebasestorage.googleapis.com/v0/b/emprendeyourlifestyle.appspot.com/o/icon.svg?alt=media&token=89c21e5e-9395-43ff-8833-59b4d350ff5e" alt="">
         </button>
-        <p class="pages">1 / 1</p>
+        <p class="pages"> {{ count }} / {{ pageTotal }}</p>
         <button class="button next"  v-on:click="nextPages()">
           <img src="https://firebasestorage.googleapis.com/v0/b/emprendeyourlifestyle.appspot.com/o/icon%20(1).svg?alt=media&token=c76c9e87-5ba1-41f8-ac3c-8870ea5fcb7f" alt="">
         </button>
       </section>
     </nav>
 
-    <Info  @nextPage="nextPages = $event" @prevPage="prevPages = $event" @searchData="searchDate = $event" :dataSearch="search"/>
+    <Info @nextPage="nextPages = $event" @prevPage="prevPages = $event" @searchData="searchDate = $event" :dataSearch="search"/>
 
     <section class="footer">
       <p>1</p>
@@ -133,7 +153,7 @@ html, body {
 }
 
 .Options select {
-  width: 40px;
+  width: 60px;
   height: 32px;
 }
 
@@ -152,6 +172,12 @@ html, body {
   outline: none;
   height: 90%;
   width: 90%;
+}
+
+.input div img {
+  height: 22px;
+  width: 22px;
+  margin: auto;
 }
 
 
@@ -182,9 +208,6 @@ html, body {
   object-fit: contain;
 }
 
-.default {
-  background: url("https://firebasestorage.googleapis.com/v0/b/emprendeyourlifestyle.appspot.com/o/filter.svg?alt=media&token=53735ece-37e1-49c1-8313-bb1782e98088");
-}
 
 
 
@@ -192,23 +215,25 @@ html, body {
   #app {
     width: 90vw;
   }
+
   .nav {
-    grid-template-columns: .3fr 1fr .3fr;
+    grid-template-columns: .3fr .7fr .3fr;
     
   }
 
-  .input form {
+  .input div {
     width: 90%;
   }
 
+  
+
   .pagination {
-     grid-template-areas: " prev page "
-  " next page ";
-    grid-gap: .6rem;
+     grid-template-areas: " prev next ";
+      grid-gap: .6rem;
   }
 
   .pages {
-    grid-area: page;
+    display: none;
   }
 
   .prev {

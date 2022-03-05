@@ -16,8 +16,7 @@ export default {
       infomation: [],
       informationGeneral: [],
       page: 0,
-      pageSize: 0,
-      filterInfo: [],
+      countELement: 0,
     }
   },
 
@@ -38,6 +37,7 @@ export default {
           responses.forEach(response => {
             this.infomation = this.infomation.concat(response.data.data);
             this.informationGeneral = this.informationGeneral.concat(response.data.data);
+            this.countELement = response.data.meta.total;
           });
         }))
 
@@ -48,9 +48,10 @@ export default {
     nextPage(){
       console.log("nextPage");
       this.page = this.page + 10;
+      
     },
     prevPage(){
-      if (this.page > 0) {
+      if (this.page > 1) {
         this.page = this.page - 10;
       }
     },
