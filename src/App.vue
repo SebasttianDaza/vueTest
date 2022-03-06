@@ -16,17 +16,11 @@ export default {
       search: '',
       searchDate: Function,
       typeSearch: '',
-      resultsTotal: Number,
-      page: Number,
+      resultsTotal: {
+        type: Number,
+        default: 0
+      },
     }
-  },
-
-  methods: {
-    calculatePagesAboutResults () {
-      for(let i = 10; i <= this.resultsTotal; i += 10) {
-        return this.page = this.page + 1;
-      }
-    },
   }
 
 }
@@ -36,9 +30,9 @@ export default {
 <template>
   <div>
     <nav class="nav"> 
-      <section class="Options">
-        <select v-model="typeSearch">
-          <option  class="default" value="name">Filter</option>
+      <section class="Options" required>
+        <select v-model="typeSearch" id="select">
+          <option disabled hidden selected>Select</option>
           <option value="name">Name</option>
           <option value="country">Country</option>
           <option value="continet">Continet</option>
@@ -46,7 +40,7 @@ export default {
       </section>
       <section class="input">
         <div>
-          <img src="https://firebasestorage.googleapis.com/v0/b/emprendeyourlifestyle.appspot.com/o/3844432_magnifier_search_zoom_icon.svg?alt=media&token=383ec967-4e06-44b3-a1fb-528c7dac3912" alt="">
+          <i class="bi bi-search"></i>
           <input 
           v-model="search" 
           :placeholder="( typeSearch === 'name' ) ? 'Search by name' : ( typeSearch === 'country' ) ? 'Search by country' : 'Search by continent' "
@@ -56,11 +50,10 @@ export default {
       </section>
       <section class="pagination">
         <button class="button prev" v-on:click="prevPages()">
-          <img src="https://firebasestorage.googleapis.com/v0/b/emprendeyourlifestyle.appspot.com/o/icon.svg?alt=media&token=89c21e5e-9395-43ff-8833-59b4d350ff5e" alt="">
+          <i class="bi bi-arrow-left"></i>
         </button>
-        <p class="pages"> 1 / 1</p>
         <button class="button next"  v-on:click="nextPages()">
-          <img src="https://firebasestorage.googleapis.com/v0/b/emprendeyourlifestyle.appspot.com/o/icon%20(1).svg?alt=media&token=c76c9e87-5ba1-41f8-ac3c-8870ea5fcb7f" alt="">
+          <i class="bi bi-arrow-right"></i>
         </button>
       </section>
     </nav>
@@ -68,9 +61,8 @@ export default {
     <Info @nextPage="nextPages = $event" @prevPage="prevPages = $event" @searchData="searchDate = $event" :dataSearch="search"  @countELement="resultsTotal = $event"/>
 
     <section class="footer">
-      <p>Results: {{ resultsTotal }}</p>
-      <p>1</p>
-      <p>2</p>
+      <p>Results: {{  resultsTotal  }}</p>
+      <p>Sebastian Daza</p>
       <p>Carbon Five</p>
     </section>
   </div>
@@ -109,9 +101,10 @@ html, body {
 
 .footer {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   width: 100%;
-  height: 35px;
+  min-height: 35px;
+  max-height: 35px;
   padding: 1rem 0;
   margin: 0;
   background-color: var(--color-background);
@@ -144,12 +137,24 @@ html, body {
 
 .Options {
   justify-self: center;
+
 }
 
-.Options select {
+#select {
+  appearance: none;
+  color: var(--color-text-second);
+  outline: 0;
+  font: var(--font-family-body);
+  /* Personalize */
   width: 60px;
   height: 32px;
+  padding: 0 4em 0 1em;
+  border-radius: 0.25em;
+  box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  
 }
+
 
 .input div {
   display: grid;
@@ -161,6 +166,10 @@ html, body {
   border-radius: 6px;
 }
 
+.input div:hover {
+  box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+}
+
 .input div input {
   border: none;
   outline: none;
@@ -168,7 +177,7 @@ html, body {
   width: 90%;
 }
 
-.input div img {
+.input div i {
   height: 22px;
   width: 22px;
   margin: auto;
@@ -177,7 +186,7 @@ html, body {
 
 .pagination {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr ;
   padding: .5rem;
   align-items: center;
   justify-items: center;
@@ -195,7 +204,7 @@ html, body {
   cursor: pointer;
 }
 
-.button img {
+.button i {
   width: 50%;
   height: 50%;
   color: #FFFFFF;
@@ -219,24 +228,10 @@ html, body {
     width: 90%;
   }
 
-  
-
   .pagination {
-     grid-template-areas: " prev next ";
-      grid-gap: .6rem;
+    grid-gap: 1rem;
   }
 
-  .pages {
-    display: none;
-  }
-
-  .prev {
-    grid-area: prev;
-  }
-
-  .next {
-    grid-area: next;
-  }
 } 
 
 </style>

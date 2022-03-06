@@ -1,10 +1,13 @@
 <script >
 import axios from 'axios';
 import Row from './row.vue';
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
   components: {
-    Row
+    Row,
+    Loading
   },
 
   props: {
@@ -17,6 +20,7 @@ export default {
       informationGeneral: [],
       page: 0,
       countELement: 0,
+      isLoading: false,
     }
   },
 
@@ -32,6 +36,7 @@ export default {
         page.push(URL + i);
       }
 
+      this.isLoading = true;
 
       await AXIOS.all( page.map(url => AXIOS.get(url)) )
         .then(AXIOS.spread((...responses) => {
@@ -45,6 +50,9 @@ export default {
         .catch(error => {
           this.handleError(error);
         });
+
+      this.isLoading = false;
+      
 
       
         
@@ -111,6 +119,8 @@ export default {
 </script>
 
 <template>
+  
+
   <div class="contentTable">
     <table class="Table">
       <tr class="TableHead">
@@ -118,9 +128,16 @@ export default {
           <th class="thName">Name</th>
           <th class="thCountry">Country</th>
           <th class="thContinent">Continent</th>
-          <th class="thCoordinates">Coordinates {{ countELement }}</th>
+          <th class="thCoordinates">Coordinates </th>
       </tr> 
-      
+      <loading 
+        :active='isLoading' 
+        :is-full-page="false" 
+        :loader="bars"
+        z-index="9999"
+        lock-scroll="true"
+
+      />
 
       <Row 
       v-for="(item, index) in infomation.slice(page, page + 10)" 
@@ -132,9 +149,9 @@ export default {
       :cordinates="item.coordinates"
       
        >
-      </Row>     
+      </Row>
+    </table>
 
-  </table>
   </div>
 </template>
 
@@ -146,6 +163,7 @@ export default {
   box-shadow: 0px 0px 0px 1px rgba(152, 161, 178, 0.1), 
   0px 1px 4px rgba(69, 75, 87, 0.12)
   , 0px 0px 2px rgba(0, 0, 0, 0.08);
+  min-height: 400px;
 }
 
 .Table {

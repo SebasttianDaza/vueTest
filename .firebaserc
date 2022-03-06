@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "vuetest-cf8a7"
-  }
+    "default": "vuetest-cf8a7",
+    "vueStaging": "page404"
+  },
+  "targets": {}
 }

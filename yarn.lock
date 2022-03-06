@@ -252,12 +252,17 @@
   optionalDependencies:
     "fsevents" "~2.3.2"
 
+"vue-loading-overlay@^5.0.3":
+  "integrity" "sha512-6JWZalwlHF4do3HXsFZGt6PcWYseAI5FuNKpveEkljkzqskDWRr7rYmYHVx2kKu4qIvK0vLpL25T/hpFMNoevQ=="
+  "resolved" "https://registry.npmjs.org/vue-loading-overlay/-/vue-loading-overlay-5.0.3.tgz"
+  "version" "5.0.3"
+
 "vue-remix-icons@^1.1.1":
   "integrity" "sha512-+L0VE44WtpnGkD933E2L58K2yvNAOwk0iaCdRRXDulncv3ko0oVMYIJM+S0JxM1QieIqjfxfMX22OSZQJSfBtA=="
   "resolved" "https://registry.npmjs.org/vue-remix-icons/-/vue-remix-icons-1.1.1.tgz"
   "version" "1.1.1"
 
-"vue@^3.2.25", "vue@3.2.31":
+"vue@^3.0.0", "vue@^3.2.25", "vue@3.2.31":
   "integrity" "sha512-odT3W2tcffTiQCy57nOT93INw1auq5lYLLYtWpPYQQYQOOdHiqFct9Xhna6GJ+pJQaF67yZABraH47oywkJgFw=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-3.2.31.tgz"
   "version" "3.2.31"
