@@ -32,7 +32,8 @@
 - [How To Usea](#how-to-usea)
 - [Documentation](#documentation)
     - [File Principal](#file-principal)
-  - [Folder Principal-](#folder-principal-)
+    - [Folder Principal-](#folder-principal-)
+    - [Function Principal](#function-principal)
 - [Contact](#contact)
 
 <!-- OVERVIEW -->
@@ -92,12 +93,17 @@ $ npm run build
   - [Vue](src/App.vue) Main App and Implement all components and logic
   - [HTML](index.html) Main HTML
   - [Dist](dist/index.html) Implement all site compiled
-### Folder Principal-
+#### Folder Principal-
   - [.firebase](.firebase/hosting.ZGlzdA.cache) It has files for the hosting
   - [.github](.github/workflows/firebase-hosting-merge.yml) It has the logic to compilation and implement all the project to do push of repository.
   - [src/components](src/components) It has all the components
   - [src] It has all the files of Vue and JS
 
+#### Function Principal
+  -  [getData](src/components/info.vue) Get data from API
+  -  [nextPage](src/components/info.vue) Get next page with the results
+  -  [prevPage](src/components/info.vue) Get previous page with the results
+  -  [searchData](src/components/info.vue) Search data in the table depending on the type of filter
 
 ## Contact
 

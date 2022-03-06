@@ -21,6 +21,7 @@ export default {
       page: 0,
       countELement: 0,
       isLoading: false,
+      findNotError: true,
     }
   },
 
@@ -101,7 +102,10 @@ export default {
     },
 
     handleError (error) {
-      console.log(error);
+      console.warn(error)
+      if(error.response.status === 429){
+        this.findNotError = false;
+      }
     }
   },
 
@@ -118,7 +122,7 @@ export default {
 
 </script>
 
-<template>
+<template >
   
 
   <div class="contentTable">
@@ -133,12 +137,16 @@ export default {
       <loading 
         :active='isLoading' 
         :is-full-page="false" 
-        :loader="bars"
+        loader="bars"
         z-index="9999"
         lock-scroll="true"
 
       />
 
+      {{
+        findNotError === true ? '' : 'No results found, reload the page'
+      }}
+      
       <Row 
       v-for="(item, index) in infomation.slice(page, page + 10)" 
       :key="index" 
@@ -164,6 +172,15 @@ export default {
   0px 1px 4px rgba(69, 75, 87, 0.12)
   , 0px 0px 2px rgba(0, 0, 0, 0.08);
   min-height: 400px;
+}
+
+div.showError {
+  display: block;
+}
+
+div.handleError {
+  display: none;
+  opacity: 0;
 }
 
 .Table {
